@@ -54,3 +54,15 @@ function validarEstado() {
     }
     return "";
 }
+
+function validarEmail() {
+    const correo = document.querySelector("#email").value.trim();
+    const formato = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!correo) {return "Error: Ingrese su correo electrónico.";
+
+    }
+    if (correo.length > 254 || !formato.test(correo)) {
+        return "Error: Ingrese un correo electrónico válido.";
+    }
+    return "";
+}
