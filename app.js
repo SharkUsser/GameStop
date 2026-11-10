@@ -19,3 +19,14 @@ function validarTipo() {
     }
     return "";
 }
+
+function validarDescripcion() {    
+    const descripcion = document.querySelector("#descripcion").value.trim();     
+    if (!descripcion) {        
+        return "Error: Escriba una descripción.";    
+    }    
+    if (descripcion.length < 10 || descripcion.length > 500) {        
+        return "Error: La descripción debe tener entre 10 y 500 caracteres.";    
+    }    
+    return ""; 
+}
