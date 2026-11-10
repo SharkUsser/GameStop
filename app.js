@@ -30,3 +30,15 @@ function validarDescripcion() {
     }    
     return ""; 
 }
+
+function validarNombre() {
+    const nombre = document.querySelector("#nombre").value.trim();
+ 
+    if (!nombre) {
+        return "Error: Ingrese el nombre del videojuego.";
+    }
+    if (nombre.length < 3 || nombre.length > 80) {
+        return "Error: El nombre debe tener entre 3 y 80 caracteres.";
+    }
+    return "";
+}
