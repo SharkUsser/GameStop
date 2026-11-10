@@ -42,3 +42,15 @@ function validarNombre() {
     }
     return "";
 }
+
+function validarEstado() {
+    const estado = document.querySelector("#estado").value;
+    const estados = ["Nuevo", "Como Nuevo", "Buen Estado", "Con Desgaste"];
+    if (!estado) {
+        return "Error: Seleccione el estado del videojuego.";
+    }
+    if (!estados.includes(estado)) {
+        return "Error: Seleccione un estado válido.";
+    }
+    return "";
+}
