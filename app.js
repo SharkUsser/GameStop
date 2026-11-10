@@ -1,12 +1,6 @@
-const boton = document.querySelector("#boton"); 
-const mensaje = document.querySelector("#mensaje"); 
-
-function mostrarAviso() {  
-    mensaje.textContent = "Tu propuesta de intercambio está lista para ser publicada"; 
-} 
-
-boton.addEventListener("click", mostrarAviso);
-
+const formulario = document.querySelector("#formulario");
+const mensaje = document.querySelector("#mensaje");
+ 
 function validarTipo() {
     const tipo = document.querySelector("#tipo").value;
     const tipos = ["Acción", "Aventura", "Carreras", "Deportes", "Estrategia", "Plataformas", "Rol", "Simulación", "Terror"];
@@ -66,3 +60,36 @@ function validarEmail() {
     }
     return "";
 }
+
+function mostrarAviso(evento) {
+    evento.preventDefault();
+    const validaciones = [
+        validarNombre,
+        validarTipo,
+        validarEstado,
+        validarDescripcion,
+        validarEmail
+    ];
+ 
+    for (const validar of validaciones) {
+        const error = validar();
+        if (error) {
+            mensaje.className = "error";
+            mensaje.textContent = error;
+            return;
+        }
+    }
+ 
+    mensaje.className = "exito";
+    mensaje.textContent =
+        "Tu propuesta de intercambio está lista para ser publicada";
+}
+ 
+function limpiarMensaje() {
+    mensaje.textContent = "";
+    mensaje.className = "";
+}
+ 
+formulario.addEventListener("submit", mostrarAviso);
+formulario.addEventListener("input", limpiarMensaje);
+formulario.addEventListener("change", limpiarMensaje);
