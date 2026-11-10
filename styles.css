@@ -1,0 +1,72 @@
+@font-face {
+  font-family: 'Glass Antiqua';
+  src: url('./GlassAntiqua-Regular.ttf');
+}
+
+body {
+    font-family: 'Glass Antiqua', serif;
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 16px;
+    background: whitesmoke;
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 0;
+}
+
+li a {
+    text-decoration: none;
+    color: #333;
+    border: 1px solid #8b7355;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contenedor {
+    background: #f2e6d8;
+    padding: 25px;
+    margin: 30px auto;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.contenedor h1 {
+    text-align: center;
+    color: #5c4033;
+}
+
+input, textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: inherit;
+}
+
+button {
+    padding: 10px;
+    background: #8b7355;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #5c4033;
+}
+
+footer {
+    text-align: center;
+}
