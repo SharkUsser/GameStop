@@ -112,6 +112,7 @@ function mostrarPropuestas() {
     });
 }
 
+
 function mostrarAviso(evento) {
     evento.preventDefault();
 
@@ -133,9 +134,25 @@ function mostrarAviso(evento) {
         }
     }
 
+    const propuesta = {
+        id: siguienteId++,
+        nombre: document.querySelector("#nombre").value.trim(),
+        tipo: document.querySelector("#tipo").value,
+        estadoVideojuego: document.querySelector("#estado").value,
+        descripcion: document.querySelector("#descripcion").value.trim(),
+        correo: document.querySelector("#email").value.trim(),
+        estadoSolicitud: "Pendiente"
+    };
+
+    propuestas.push(propuesta);
+
+    formulario.reset();
+
+    mostrarPropuestas();
+
     mensaje.className = "exito";
     mensaje.textContent =
-        "Tu propuesta de intercambio está lista para ser publicada";
+        "Tu propuesta de intercambio se registró correctamente.";
 }
 
 function limpiarMensaje() {
