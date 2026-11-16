@@ -1,11 +1,6 @@
-const boton = document.querySelector("#boton"); 
-const mensaje = document.querySelector("#mensaje"); 
 
-function mostrarAviso() {  
-    mensaje.textContent = "Tu propuesta de intercambio está lista para ser publicada"; 
-} 
-
-boton.addEventListener("click", mostrarAviso);
+const formulario = document.querySelector("#formulario");
+const mensaje = document.querySelector("#mensaje");
 
 function validarTipo() {
     const tipo = document.querySelector("#tipo").value;
@@ -20,20 +15,21 @@ function validarTipo() {
     return "";
 }
 
-function validarDescripcion() {    
-    const descripcion = document.querySelector("#descripcion").value.trim();     
-    if (!descripcion) {        
-        return "Error: Escriba una descripción.";    
-    }    
-    if (descripcion.length < 10 || descripcion.length > 500) {        
-        return "Error: La descripción debe tener entre 10 y 500 caracteres.";    
-    }    
-    return ""; 
+function validarDescripcion() {
+    const descripcion = document.querySelector("#descripcion").value.trim();
+
+    if (!descripcion) {
+        return "Error: Escriba una descripción.";
+    }
+    if (descripcion.length < 10 || descripcion.length > 500) {
+        return "Error: La descripción debe tener entre 10 y 500 caracteres.";
+    }
+    return "";
 }
 
 function validarNombre() {
     const nombre = document.querySelector("#nombre").value.trim();
- 
+
     if (!nombre) {
         return "Error: Ingrese el nombre del videojuego.";
     }
@@ -42,3 +38,64 @@ function validarNombre() {
     }
     return "";
 }
+
+function validarEstado() {
+    const estado = document.querySelector("#estado").value;
+    const estados = ["Nuevo", "Como Nuevo", "Buen Estado", "Con Desgaste"];
+
+    if (!estado) {
+        return "Error: Seleccione el estado del videojuego.";
+    }
+    if (!estados.includes(estado)) {
+        return "Error: Seleccione un estado válido.";
+    }
+    return "";
+}
+
+function validarEmail() {
+    const correo = document.querySelector("#email").value.trim();
+    const formato = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!correo) {
+        return "Error: Ingrese su correo electrónico.";
+    }
+    if (correo.length > 254 || !formato.test(correo)) {
+        return "Error: Ingrese un correo electrónico válido.";
+    }
+    return "";
+}
+
+function mostrarAviso(evento) {
+    evento.preventDefault();
+
+    const validaciones = [
+        validarNombre,
+        validarTipo,
+        validarEstado,
+        validarDescripcion,
+        validarEmail
+    ];
+
+    for (const validar of validaciones) {
+        const error = validar();
+
+        if (error) {
+            mensaje.className = "error";
+            mensaje.textContent = error;
+            return;
+        }
+    }
+
+    mensaje.className = "exito";
+    mensaje.textContent =
+        "Tu propuesta de intercambio está lista para ser publicada";
+}
+
+function limpiarMensaje() {
+    mensaje.textContent = "";
+    mensaje.className = "";
+}
+
+formulario.addEventListener("submit", mostrarAviso);
+formulario.addEventListener("input", limpiarMensaje);
+formulario.addEventListener("change", limpiarMensaje);

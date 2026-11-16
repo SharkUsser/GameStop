@@ -20,7 +20,7 @@
     </header>
 
 
-    <div class="contenedor">
+    <form id="formulario" class="contenedor" novalidate>
         <h1>Intercambio de Videojuegos</h1>
 
         <label for="nombre">Nombre del Videojuego</label>
@@ -42,14 +42,25 @@
             <option value="Terror">Terror</option>
         </select>
 
+        <label for="estado">Estado del Videojuego</label> 
+        <select id="estado" name="estado" required>  
+            <option value="">Seleccione un estado</option>
+            <option value="Nuevo">Nuevo</option>
+            <option value="Como Nuevo">Como Nuevo</option>
+            <option value="Buen Estado">Buen Estado</option>
+            <option value="Con Desgaste">Con Desgaste</option>
+        </select>
+        
         <label for="descripcion">Descripción</label>
         <textarea id="descripcion" name="descripcion"
             placeholder="Indique las condiciones del videojuego y qué busca intercambiar" minlength="10" maxlength="500" required></textarea>
 
-        <button id="boton" type="button">Proponer Intercambio</button>
+        <label for="email">Correo Electrónico</label>
+        <input id="email" name="email" type="email" placeholder="Ej. jugador@correo.com" maxlength="254" autocomplete="email" required>
 
-        <p id="mensaje" aria-live="polite"></p>
-    </div>
+        <button id="boton" type="submit">Proponer Intercambio</button>
+        <p id="mensaje" aria-live="polite" role="status"></p>
+    </form>
     
     <footer>
         All rigths reserved - GameStop USA

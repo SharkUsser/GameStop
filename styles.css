@@ -46,11 +46,15 @@ li a {
     color: #5c4033;
 }
 
-input, textarea {
+input, select, textarea {
+    width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    box-sizing: border-box;
+    background: white;
     font-family: inherit;
+    font-size: 16px;
 }
 
 button {
@@ -69,4 +73,26 @@ button:hover {
 
 footer {
     text-align: center;
+}
+
+label { 
+    color: #5c4033; font-size: 18px; 
+}
+
+textarea { 
+    min-height: 100px; resize: vertical; 
+}
+
+#mensaje { 
+    text-align: center; 
+    font-size: 18px; 
+    margin: 5px 0; 
+}
+
+.error { 
+    color: #b22222; 
+}
+
+.exito { 
+    color: #237a3b; 
 }
