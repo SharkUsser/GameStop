@@ -1,6 +1,11 @@
-
 const formulario = document.querySelector("#formulario");
 const mensaje = document.querySelector("#mensaje");
+
+const lista = document.querySelector("#lista-propuestas");
+const contadorTotal = document.querySelector("#contador-total");
+
+let propuestas = [];
+let siguienteId = 1;
 
 function validarTipo() {
     const tipo = document.querySelector("#tipo").value;
@@ -63,6 +68,48 @@ function validarEmail() {
         return "Error: Ingrese un correo electrónico válido.";
     }
     return "";
+}
+
+function mostrarPropuestas() {
+    lista.replaceChildren();
+
+    contadorTotal.textContent =
+        `Total de propuestas: ${propuestas.length}`;
+
+    propuestas.forEach(propuesta => {
+        const tarjeta = document.createElement("article");
+        tarjeta.className = "tarjeta-propuesta";
+
+        const titulo = document.createElement("h3");
+        titulo.textContent =
+            `${propuesta.nombre} (#${propuesta.id})`;
+
+        tarjeta.append(titulo);
+
+        const datos = [
+            ["Género", propuesta.tipo],
+            ["Estado del videojuego", propuesta.estadoVideojuego],
+            ["Descripción", propuesta.descripcion],
+            ["Correo", propuesta.correo],
+            ["Estado de propuesta", propuesta.estadoSolicitud]
+        ];
+
+        datos.forEach(([etiqueta, valor]) => {
+            const parrafo = document.createElement("p");
+            const negrita = document.createElement("strong");
+
+            negrita.textContent = `${etiqueta}: `;
+
+            parrafo.append(
+                negrita,
+                document.createTextNode(valor)
+            );
+
+            tarjeta.append(parrafo);
+        });
+
+        lista.append(tarjeta);
+    });
 }
 
 function mostrarAviso(evento) {

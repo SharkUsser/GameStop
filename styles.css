@@ -96,3 +96,40 @@ textarea {
 .exito { 
     color: #237a3b; 
 }
+
+.seccion-propuestas h2 {
+    text-align: center;
+    color: #5c4033;
+}
+
+#contador-total {
+    color: #5c4033;
+    font-size: 18px;
+}
+
+#lista-propuestas {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tarjeta-propuesta {
+    background: #fffaf5;
+    border: 1px solid #8b7355;
+    border-radius: 12px;
+    padding: 16px;
+    overflow-wrap: anywhere;
+}
+
+.tarjeta-propuesta h3 {
+    color: #5c4033;
+    margin-top: 0;
+}
+
+.tarjeta-propuesta p {
+    margin: 6px 0;
+}
+
+.tarjeta-propuesta strong {
+    color: #5c4033;
+}
