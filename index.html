@@ -64,10 +64,17 @@
 
     <section class="contenedor seccion-propuestas">
         <h2>Propuestas Registradas</h2>
+        <label for="buscar">Buscar propuesta</label>
 
+        <input id="buscar" type="search"
+            placeholder="Buscar por videojuego o descripción"
+            autocomplete="off">
         <p id="contador-total">
             Total de propuestas: 0
         </p>
+        <p id="contador-visibles" aria-live="polite">
+            Resultados visibles: 0
+        </p>        
 
         <div id="lista-propuestas"></div>
     </section>

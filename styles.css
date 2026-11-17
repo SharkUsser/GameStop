@@ -133,3 +133,33 @@ textarea {
 .tarjeta-propuesta strong {
     color: #5c4033;
 }
+
+/* Controles de Erick */
+.acciones-propuesta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 12px;
+}
+.etiqueta-estado {
+    display: inline-block;
+    background: #f2e6d8;
+    border: 1px solid #8b7355;
+    border-radius: 12px;
+    padding: 4px 9px;
+    color: #5c4033;
+}
+.etiqueta-estado.completada {
+    background: #e3eee3;
+    border-color: #237a3b;
+    color: #237a3b;
+}
+.boton-eliminar {
+    background: transparent;
+    color: #5c4033;
+    border: 1px solid #8b7355;
+}
+.boton-eliminar:hover {
+    background: #5c4033;
+    color: white;
+}
