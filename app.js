@@ -4,6 +4,9 @@ const mensaje = document.querySelector("#mensaje");
 const lista = document.querySelector("#lista-propuestas");
 const contadorTotal = document.querySelector("#contador-total");
 
+const buscar = document.querySelector("#buscar");
+const contadorVisibles = document.querySelector("#contador-visibles");
+
 let propuestas = [];
 let siguienteId = 1;
 
@@ -76,7 +79,28 @@ function mostrarPropuestas() {
     contadorTotal.textContent =
         `Total de propuestas: ${propuestas.length}`;
 
-    propuestas.forEach(propuesta => {
+    const consulta = buscar.value.trim().toLocaleLowerCase("es");
+
+    const visibles = propuestas.filter(propuesta =>
+        propuesta.nombre.toLocaleLowerCase("es").includes(consulta) ||
+        propuesta.descripcion.toLocaleLowerCase("es").includes(consulta)
+    );
+
+    contadorVisibles.textContent =
+    `Resultados visibles: ${visibles.length}`;
+
+    if (visibles.length === 0) {
+        const vacio = document.createElement("p");
+
+        vacio.textContent = propuestas.length === 0
+            ? "Aún no hay propuestas registradas."
+            : "No hay propuestas que coincidan con la búsqueda.";
+
+        lista.append(vacio);
+        return;
+    }
+
+    visibles.forEach(propuesta => {
         const tarjeta = document.createElement("article");
         tarjeta.className = "tarjeta-propuesta";
 
@@ -107,6 +131,28 @@ function mostrarPropuestas() {
 
             tarjeta.append(parrafo);
         });
+        const acciones = document.createElement("div");
+        acciones.className = "acciones-propuesta";
+        const etiquetaEstado = document.createElement("span");
+        etiquetaEstado.className = "etiqueta-estado";
+        etiquetaEstado.textContent = propuesta.estadoSolicitud;
+
+        if (propuesta.estadoSolicitud === "Completada") {
+            etiquetaEstado.classList.add("completada");
+        }
+        const botonEstado = document.createElement("button");
+        botonEstado.type = "button";
+        botonEstado.textContent = propuesta.estadoSolicitud === "Pendiente"
+            ? "Marcar como completada" : "Marcar como pendiente";
+        botonEstado.addEventListener("click", () => cambiarEstado(propuesta.id));
+        const botonEliminar = document.createElement("button");
+        botonEliminar.type = "button";
+        botonEliminar.className = "boton-eliminar";
+        botonEliminar.textContent = "Eliminar";
+
+        botonEliminar.addEventListener("click", () => eliminarPropuesta(propuesta.id));
+        acciones.append(etiquetaEstado, botonEstado, botonEliminar);
+        tarjeta.append(acciones);
 
         lista.append(tarjeta);
     });
@@ -155,6 +201,31 @@ function mostrarAviso(evento) {
         "Tu propuesta de intercambio se registró correctamente.";
 }
 
+
+function cambiarEstado(id) {
+    const propuesta = propuestas.find(item => item.id === id);
+
+    if (!propuesta) return;
+
+    propuesta.estadoSolicitud = propuesta.estadoSolicitud === "Pendiente"
+        ? "Completada" : "Pendiente";
+
+    mostrarPropuestas();
+}
+
+function eliminarPropuesta(id) {
+    const propuesta = propuestas.find(item => item.id === id);
+
+    if (!propuesta) return;
+
+    if (!confirm(`¿Eliminar la propuesta #${id}?`)) return;
+
+    propuestas = propuestas.filter(item => item.id !== id);
+
+    mostrarPropuestas();
+}
+
+
 function limpiarMensaje() {
     mensaje.textContent = "";
     mensaje.className = "";
@@ -163,3 +234,4 @@ function limpiarMensaje() {
 formulario.addEventListener("submit", mostrarAviso);
 formulario.addEventListener("input", limpiarMensaje);
 formulario.addEventListener("change", limpiarMensaje);
+buscar.addEventListener("input", mostrarPropuestas);
