@@ -7,8 +7,32 @@ const contadorTotal = document.querySelector("#contador-total");
 const buscar = document.querySelector("#buscar");
 const contadorVisibles = document.querySelector("#contador-visibles");
 
+const CLAVE = "gamestop-propuestas-v1";
+
+const texto = localStorage.getItem(CLAVE);
+
 let propuestas = [];
-let siguienteId = 1;
+
+try {
+    propuestas = texto === null ? [] : JSON.parse(texto);
+} catch (error) {
+    propuestas = [];
+}
+
+if (!Array.isArray(propuestas)) {
+    propuestas = [];
+}
+
+let siguienteId = propuestas.reduce(
+    (maximo, propuesta) => Math.max(maximo, propuesta.id), 0
+) + 1;
+
+function guardarPropuestas() {
+    localStorage.setItem(
+        CLAVE,
+        JSON.stringify(propuestas)
+    );
+}
 
 function validarTipo() {
     const tipo = document.querySelector("#tipo").value;
@@ -192,6 +216,8 @@ function mostrarAviso(evento) {
 
     propuestas.push(propuesta);
 
+    guardarPropuestas();
+
     formulario.reset();
 
     mostrarPropuestas();
@@ -210,6 +236,8 @@ function cambiarEstado(id) {
     propuesta.estadoSolicitud = propuesta.estadoSolicitud === "Pendiente"
         ? "Completada" : "Pendiente";
 
+    guardarPropuestas();
+
     mostrarPropuestas();
 }
 
@@ -221,6 +249,8 @@ function eliminarPropuesta(id) {
     if (!confirm(`¿Eliminar la propuesta #${id}?`)) return;
 
     propuestas = propuestas.filter(item => item.id !== id);
+
+    guardarPropuestas();
 
     mostrarPropuestas();
 }
@@ -235,3 +265,4 @@ formulario.addEventListener("submit", mostrarAviso);
 formulario.addEventListener("input", limpiarMensaje);
 formulario.addEventListener("change", limpiarMensaje);
 buscar.addEventListener("input", mostrarPropuestas);
+mostrarPropuestas();
